@@ -25,10 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    newform.cpp \
+    talksform.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    newform.h \
+    talksform.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    newform.ui
