@@ -1,0 +1,16 @@
+{
+    "title" : "Docker NCR and ILUGD",
+    "date" : {
+        "d" : 9,
+        "m" : 6,
+        "y" : 2018
+    },
+    "venue" : "Knowlarity",
+    "time" : {
+        "start" : "11AM",
+        "end" : "4PM"
+    },
+    "background" : "back.png",
+    "websites" : ["linuxdelhi.org","yogdaan.org"],
+    "logos" : ["logo1.png","logo2.png"]
+}

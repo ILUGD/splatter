@@ -2,33 +2,24 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 )
 
-//Date  Data Structure for containing the meetup date
+//Date  Data Structure for containing the Meetup Date
 type Date struct {
-	D string `json:"d"`
-	M string `json:"m"`
-	Y string `json:"y"`
+	D int `json:"d"`
+	M int `json:"m"`
+	Y int `json:"y"`
 }
 
-//Time  Data Structure for containing timings
+//Time  Data Structure for containing Timings
 type Time struct {
 	Start string `json:"start"`
 	End   string `json:"end"`
-}
-
-//Logos  Data Structure for containing paths for different logos
-type Logos struct {
-	Logo []string `json:"logo"`
-}
-
-//Websites  Data Structure for containing the different links
-type Websites struct {
-	Web []string `json:"web"`
 }
 
 //Document  Parent Data Structure for the Poster Details
@@ -38,13 +29,8 @@ type Document struct {
 	Venue         string   `json:"venue"`
 	Timings       Time     `json:"time"`
 	Background    string   `json:"background"`
-	SponsorLogos  Logos    `json:"logos"`
-	GroupWebsites Websites `json:"websites"`
-}
-
-//imageDate  Wrapper Data Structure for containing the Document
-type imageData struct {
-	PosterDetails Document `json:"document"`
+	SponsorLogos  []string `json:"logos"`
+	GroupWebsites []string `json:"websites"`
 }
 
 var jsonFile = flag.String("config", "NULL", "Path for the JSON config")
@@ -52,20 +38,25 @@ var jsonFile = flag.String("config", "NULL", "Path for the JSON config")
 func main() {
 	flag.Parse()
 
+	if *jsonFile == "NULL" {
+		must(errors.New("Forgot to Enter the File Location?" +
+			"Hint : Use the -config flag"))
+	}
+
 	detailsFile, err := os.Open(*jsonFile)
 	defer detailsFile.Close()
 
 	must(err)
 
-	var imageDetails imageData
+	var imageDetails Document
 
 	bytes, _ := ioutil.ReadAll(detailsFile)
 	err = json.Unmarshal(bytes, &imageDetails)
 
 	must(err)
-
 }
 
+//must  Function for handling errors
 func must(err error) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
