@@ -1,19 +1,11 @@
 package main
 
 import (
-	"github.com/signintech/gopdf"
+	"github.com/ungerik/go-cairo"
 )
 
 //GeneratePoster  Function to generate a poster based on the given details
 func GeneratePoster(posterDetails Document) {
-	pdf := gopdf.GoPdf{}
-	pdf.Start(gopdf.Config{PageSize: gopdf.Rect{W: 595, H: 842}}) //A4
-	pdf.AddPage()
-
-	//Draw Background
-	rect := gopdf.Rect{W: 595, H: 842}
-	err := pdf.Image(posterDetails.Background, 0, 0, &rect)
-	must(err)
-
-	pdf.WritePdf(posterDetails.Title + ".pdf")
+	surface, _ := cairo.NewSurfaceFromPNG(posterDetails.Background)
+	surface.WriteToPNG(posterDetails.Title + ".png")
 }

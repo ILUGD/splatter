@@ -49,7 +49,6 @@ func main() {
 			"Hint : Use the -fonts flag"))
 	}
 
-	fmt.Println(*fontLocFlag)
 	configFile, err := os.Open(*configFlag)
 	defer configFile.Close()
 
