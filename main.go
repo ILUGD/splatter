@@ -33,27 +33,29 @@ type Document struct {
 	GroupWebsites []string `json:"websites"`
 }
 
-var jsonFile = flag.String("config", "NULL", "Path for the JSON config")
+var configFlag = flag.String("config", "NULL", "Path for the JSON config")
 
 func main() {
 	flag.Parse()
 
-	if *jsonFile == "NULL" {
+	if *configFlag == "NULL" {
 		must(errors.New("Forgot to Enter the File Location?" +
 			"Hint : Use the -config flag"))
 	}
 
-	detailsFile, err := os.Open(*jsonFile)
-	defer detailsFile.Close()
+	configFile, err := os.Open(*configFlag)
+	defer configFile.Close()
 
 	must(err)
 
 	var imageDetails Document
 
-	bytes, _ := ioutil.ReadAll(detailsFile)
+	bytes, _ := ioutil.ReadAll(configFile)
 	err = json.Unmarshal(bytes, &imageDetails)
 
 	must(err)
+
+	GeneratePoster(imageDetails)
 }
 
 //must  Function for handling errors
