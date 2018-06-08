@@ -10,7 +10,7 @@
         "start" : "11AM",
         "end" : "4PM"
     },
-    "background" : "back.png",
+    "background" : "backgrounds/back1.png",
     "websites" : ["linuxdelhi.org","yogdaan.org"],
     "logos" : ["logo1.png","logo2.png"]
 }
