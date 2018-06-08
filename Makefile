@@ -1,1 +1,2 @@
-go install github.com/ILUGD/splatter
+all:
+	go install github.com/ILUGD/splatter

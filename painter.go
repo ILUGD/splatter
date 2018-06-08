@@ -15,5 +15,5 @@ func GeneratePoster(posterDetails Document) {
 	err := pdf.Image(posterDetails.Background, 0, 0, &rect)
 	must(err)
 
-	pdf.WritePdf("Poster.pdf")
+	pdf.WritePdf(posterDetails.Title + ".pdf")
 }
