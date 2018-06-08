@@ -1,2 +1,2 @@
 all:
-	splatter -config poster.json
+	splatter -config poster.json -fonts fonts/

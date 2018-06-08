@@ -34,6 +34,7 @@ type Document struct {
 }
 
 var configFlag = flag.String("config", "NULL", "Path for the JSON config")
+var fontLocFlag = flag.String("fonts", "NULL", "Path for folder storing fonts")
 
 func main() {
 	flag.Parse()
@@ -43,6 +44,12 @@ func main() {
 			"Hint : Use the -config flag"))
 	}
 
+	if *fontLocFlag == "NULL" {
+		must(errors.New("Forgot to Enter the Fonts Folder?" +
+			"Hint : Use the -fonts flag"))
+	}
+
+	fmt.Println(*fontLocFlag)
 	configFile, err := os.Open(*configFlag)
 	defer configFile.Close()
 
