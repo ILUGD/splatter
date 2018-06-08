@@ -15,7 +15,7 @@ func GeneratePoster(posterDetails Document) {
 
 //DrawTitle  Function to draw the Title of the Poster
 func DrawTitle(title string, surface *cairo.Surface) {
-	surface.SelectFontFace("sans-serif", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+	surface.SelectFontFace("opensans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
 	surface.SetFontSize(50.0)
 	surface.SetSourceRGB(0.086, 0.141, 0.173)
 	x, y := 150.00, 198.00
@@ -34,6 +34,7 @@ func DrawTitle(title string, surface *cairo.Surface) {
 	}
 }
 
+//breakTitle  Function to break the Title into proper set of words
 func breakTitle(title string) []string {
 	stopWords := []string{"And", "and", "&", "+"}
 	tokenizedTitle := strings.Split(title, " ")
