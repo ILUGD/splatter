@@ -14,7 +14,7 @@ You need to have your `$GOPATH` for this.
 If you are not a developer, we have binaries too,
 
 ```bash
-wget https://github.com/ILUGD/splatter/raw/0.1alpha/binary/splatter.tar
+wget https://github.com/ILUGD/splatter/releases/download/v0.1alpha/splatter
 tar xf splatter.tar
 sudo cp splatter /usr/bin/
 ```
