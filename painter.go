@@ -1,10 +1,26 @@
 package main
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/ungerik/go-cairo"
 )
+
+var months = map[int]string{
+	1:  "January",
+	2:  "February",
+	3:  "March",
+	4:  "April",
+	5:  "May",
+	6:  "June",
+	7:  "July",
+	8:  "August",
+	9:  "September",
+	10: "October",
+	11: "November",
+	12: "December",
+}
 
 //GeneratePoster  Function to generate a poster based on the given details
 func GeneratePoster(posterDetails Document) {
@@ -31,8 +47,77 @@ func GeneratePoster(posterDetails Document) {
 	surface.SelectFontFace("ubuntu", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 	DrawString(posterDetails.Venue, surface, 20)
 
+	//Draw Another Line
+	_, y = surface.GetCurrentPoint()
+	y += 20
+	x = float64(surface.GetWidth() / 4)
+	surface.SetLineWidth(2.0)
+	surface.MoveTo(x, y)
+	surface.SetSourceRGB(0.7, 0.7, 0.7)
+	surface.RelLineTo(float64(surface.GetWidth()/2), 0)
+	surface.Stroke()
+
+	//Draw the Timings
+	text := posterDetails.Timings.Start + " - " + posterDetails.Timings.End
+	y += 37
+	surface.MoveTo(x, y)
+	surface.SetFontSize(25)
+	surface.SetSourceRGB(0.3, 0.3, 0.3)
+	extents := surface.TextExtents(text)
+	width := surface.GetWidth()
+	center := width / 2
+	x = float64(center) - (extents.Width/2 + extents.Xbearing)
+	surface.MoveTo(x, y)
+	surface.ShowText(text)
+
+	//Draw the Date
+	y += 40
+	text = months[posterDetails.EventDate.M] + "  " +
+		strconv.Itoa(posterDetails.EventDate.D)
+	surface.MoveTo(x, y)
+	surface.SetFontSize(25)
+	surface.SetSourceRGB(0.3, 0.3, 0.3)
+	extents = surface.TextExtents(text)
+	width = surface.GetWidth()
+	center = width / 2
+	x = float64(center) - (extents.Width/2 + extents.Xbearing)
+	surface.MoveTo(x, y)
+	surface.ShowText(text)
+
+	//Draw Another line
+	_, y = surface.GetCurrentPoint()
+	y += 20
+	x = float64(surface.GetWidth() / 3)
+	surface.SetLineWidth(2.0)
+	surface.MoveTo(x, y)
+	surface.SetSourceRGB(0.5, 0.5, 0.5)
+	surface.RelLineTo(float64(surface.GetWidth()/3), 0)
+	surface.Stroke()
+
+	//Finally Drawing the Links
+	y += 40
+	surface.MoveTo(x, y)
+	surface.SelectFontFace("roboto", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+	DrawLinks(posterDetails.GroupWebsites, surface, 17.0)
 	//Saving the Poster
 	surface.WriteToPNG(posterDetails.Title + ".png")
+}
+
+//DrawLinks  Function for drawing the hyperlinks
+func DrawLinks(link []string, surface *cairo.Surface, fontSize float64) {
+	surface.SetFontSize(fontSize)
+	surface.SetSourceRGB(0, 0, 0)
+	x, y := surface.GetCurrentPoint()
+
+	width := surface.GetWidth()
+	center := width / 2
+	for _, text := range link {
+		extents := surface.TextExtents(text)
+		x = float64(center) - (extents.Width/2 + extents.Xbearing)
+		surface.MoveTo(x, y)
+		surface.ShowText(text)
+		y += extents.Height + 10
+	}
 }
 
 //DrawString  Function to draw Text Elements
