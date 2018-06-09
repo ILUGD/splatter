@@ -15,7 +15,6 @@ If you are not a developer, we have binaries too,
 
 ```bash
 wget https://github.com/ILUGD/splatter/releases/download/v0.1alpha/splatter
-tar xf splatter.tar
 sudo cp splatter /usr/bin/
 ```
 
