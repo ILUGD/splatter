@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 )
 
 //Date  Data Structure for containing the Meetup Date
@@ -53,6 +54,8 @@ func main() {
 	bytes, _ := ioutil.ReadAll(configFile)
 	err = json.Unmarshal(bytes, &imageDetails)
 
+	configDir, _ := path.Split(*configFlag)
+	imageDetails.Background = path.Join(configDir, imageDetails.Background)
 	must(err)
 
 	GeneratePoster(imageDetails)
