@@ -70,11 +70,16 @@ func GeneratePoster(posterDetails Document) {
 	surface.MoveTo(x, y)
 	surface.ShowText(text)
 
+	surface.MoveTo(x-20, y)
+	surface.SelectFontFace("FontAwesome", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+	surface.ShowText("  ")
+
 	//Draw the Date
 	y += 40
 	text = months[posterDetails.EventDate.M] + "  " +
 		strconv.Itoa(posterDetails.EventDate.D)
 	surface.MoveTo(x, y)
+	surface.SelectFontFace("ubuntu", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 	surface.SetFontSize(25)
 	surface.SetSourceRGB(0.3, 0.3, 0.3)
 	extents = surface.TextExtents(text)
