@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/ILUGD/splatter/readers"
 	"github.com/ungerik/go-cairo"
 )
 
@@ -23,7 +24,7 @@ var months = map[int]string{
 }
 
 //GeneratePoster  Function to generate a poster based on the given details
-func GeneratePoster(posterDetails Document) {
+func GeneratePoster(posterDetails readers.Document) {
 	surface, _ := cairo.NewSurfaceFromPNG(posterDetails.Background)
 
 	//Draw the title
