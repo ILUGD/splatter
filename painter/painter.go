@@ -1,4 +1,4 @@
-package main
+package painter
 
 import (
 	"strconv"
@@ -30,7 +30,7 @@ func GeneratePoster(posterDetails readers.Document) {
 	//Draw the title
 	surface.MoveTo(150, 150)
 	surface.SelectFontFace("opensans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-	DrawString(posterDetails.Title, surface, 47.0)
+	drawString(posterDetails.Title, surface, 47.0)
 
 	//Draw a line
 	_, y := surface.GetCurrentPoint()
@@ -46,7 +46,7 @@ func GeneratePoster(posterDetails readers.Document) {
 	y += 30
 	surface.MoveTo(x, y)
 	surface.SelectFontFace("ubuntu", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-	DrawString(posterDetails.Venue, surface, 20)
+	drawString(posterDetails.Venue, surface, 20)
 
 	//Draw Another Line
 	_, y = surface.GetCurrentPoint()
@@ -99,13 +99,13 @@ func GeneratePoster(posterDetails readers.Document) {
 	y += 40
 	surface.MoveTo(x, y)
 	surface.SelectFontFace("roboto", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-	DrawLinks(posterDetails.GroupWebsites, surface, 17.0)
+	drawLinks(posterDetails.GroupWebsites, surface, 17.0)
 	//Saving the Poster
 	surface.WriteToPNG(posterDetails.Title + ".png")
 }
 
-//DrawLinks  Function for drawing the hyperlinks
-func DrawLinks(link []string, surface *cairo.Surface, fontSize float64) {
+//drawLinks  Function for drawing the hyperlinks
+func drawLinks(link []string, surface *cairo.Surface, fontSize float64) {
 	surface.SetFontSize(fontSize)
 	surface.SetSourceRGB(0, 0, 0)
 	x, y := surface.GetCurrentPoint()
@@ -121,8 +121,8 @@ func DrawLinks(link []string, surface *cairo.Surface, fontSize float64) {
 	}
 }
 
-//DrawString  Function to draw Text Elements
-func DrawString(rawtext string, surface *cairo.Surface, fontSize float64) {
+//drawString  Function to draw Text Elements
+func drawString(rawtext string, surface *cairo.Surface, fontSize float64) {
 	surface.SetFontSize(fontSize)
 	surface.SetSourceRGB(0.086, 0.141, 0.173)
 	x, y := surface.GetCurrentPoint()

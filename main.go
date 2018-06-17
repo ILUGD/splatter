@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/ILUGD/splatter/painter"
 	"github.com/ILUGD/splatter/readers"
 )
 
@@ -25,7 +26,7 @@ func main() {
 
 	must(err)
 
-	GeneratePoster(imageDetails)
+	painter.GeneratePoster(imageDetails)
 }
 
 //must  Function for handling errors
