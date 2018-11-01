@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ILUGD/splatter/painter"
-	"github.com/ILUGD/splatter/readers"
+	"github.com/ILUGD/splatter/lib/painter"
+	"github.com/ILUGD/splatter/lib/readers"
 )
 
-var configFlag = flag.String("config", "NULL", "Path for the JSON config")
+var configFlag = flag.String("config", "", "Path for the JSON config")
 
 func main() {
 	flag.Parse()
 
-	if *configFlag == "NULL" {
+	if *configFlag == "" {
 		must(errors.New("Forgot to Enter the File Location?" +
 			"Hint : Use the -config flag"))
 	}

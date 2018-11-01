@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ILUGD/splatter/readers"
+	"github.com/ILUGD/splatter/lib/readers"
 	"github.com/ungerik/go-cairo"
 )
 
