@@ -7,7 +7,7 @@ An easy to use tool to generate posters for meetups.
 For the latest version:
 
 
-`go get -u -v github.com/ILUGD/splatter`
+`go get -u -v github.com/ILUGD/splatter/...`
 
 You need to have your `$GOPATH` for this. 
 
