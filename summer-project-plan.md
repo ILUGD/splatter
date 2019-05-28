@@ -25,5 +25,18 @@ What do we need?
  - Either as an archive of `SVG` and `json` but parsing SVG can sometimes be tricky with the possibilities it offers 
  - Or another option is to generate a binary file using `encoding/gob` 
  
-Languages : Golang, JavaScript
-External Libraries : Cairo for Golang, no idea about the JS part though
+**Languages** : Golang, JavaScript
+
+**External Libraries** : Cairo for Golang, no idea about the JS part though
+
+##### Why Golang?
+ - This is one of the language I am most comfortable with, so gate-keeping for me(@hellozee) will be easy
+ - A part of the project is already done in it, so less work
+ - The whole toolchain is bundled into binary and lesser permutation of approaches
+ - The standard library is most often more than enough
+
+##### Why Cairo?
+ - One of most popular **drawing** libaries out there
+ - Device independent, can directly output to SVG/PDF, along with several image formats
+ - Bindings exists for most of the languages
+ - The only alternative looks like [skia](skia.org), which is probably limited to C++ and lacks community support like cairo
