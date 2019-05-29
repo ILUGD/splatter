@@ -19,6 +19,10 @@ What do we need?
 ### Deliverable 3
  - More work on the frontend, creating a canvas
  - With the canvas we can interactively generate a config
+ - This would use `VueJS` for the web app
+ - It would generate `.splat` files
+ - A custom API would accept the splat files and interface with the CLI to generate an image
+ - The frontend would allow the user to download the image
 
 ### Deliverable 4
  - Generate `.splat` files to contain both the config and the assets
