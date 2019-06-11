@@ -25,6 +25,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/ILUGD/splatter/lib/logger"
 	"github.com/ILUGD/splatter/lib/painter"
 
 	"github.com/ILUGD/splatter/lib/readers"
@@ -32,30 +33,18 @@ import (
 
 //SplatterServer  Data Structure for holding the server
 type SplatterServer struct {
-	//Don't worry about the empty struct this would hold the logger
+	*logger.Logger
 }
 
-func havePoster(w http.ResponseWriter, r *http.Request) {
+func (s *SplatterServer) havePoster(w http.ResponseWriter, r *http.Request) {
 	b, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
+	s.Must(err, "Read JSON body")
 
 	// Unmarshal
 	var msg readers.Document
 	err = json.Unmarshal(b, &msg)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	_, err = json.Marshal(msg)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
+	s.Must(err, "Unmarshalled JSON")
 
 	painter.GeneratePoster(msg)
 
@@ -65,12 +54,12 @@ func havePoster(w http.ResponseWriter, r *http.Request) {
 
 //Serve  Function to start the serving the API
 func (s *SplatterServer) Serve(port string) {
-	http.HandleFunc("/poster", havePoster)
+	http.HandleFunc("/poster", s.havePoster)
 	http.ListenAndServe(port, nil)
 }
 
 //NewServer  The splatter API server constructor
-func NewServer() *SplatterServer {
-	s := SplatterServer{}
+func NewServer(l *logger.Logger) *SplatterServer {
+	s := SplatterServer{l}
 	return &s
 }

@@ -20,9 +20,13 @@
 
 package main
 
-import "github.com/ILUGD/splatter/lib/server"
+import (
+	"github.com/ILUGD/splatter/lib/logger"
+	"github.com/ILUGD/splatter/lib/server"
+)
 
 func main() {
-	s := server.NewServer()
+	l := logger.NewLogger("logfile", true)
+	s := server.NewServer(l)
 	s.Serve(":8080")
 }

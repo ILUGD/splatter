@@ -24,6 +24,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+
+	"github.com/ILUGD/splatter/lib/logger"
 )
 
 //Date  Data Structure for containing the Meetup Date
@@ -50,36 +52,33 @@ type Document struct {
 	GroupWebsites []string `json:"websites"`
 }
 
-type configReader struct {
+type ConfigReader struct {
+	*logger.Logger
 	filename string
 }
 
-func (reader *configReader) ReadConfig() (Document, error) {
+func (reader *ConfigReader) ReadConfig() Document {
 
 	configFile, err := os.Open(reader.filename)
 	defer configFile.Close()
 
-	if err != nil {
-		return Document{}, err
-	}
+	reader.Must(err, "Read the config file")
 
 	var imageDetails Document
 
 	bytes, _ := ioutil.ReadAll(configFile)
 	err = json.Unmarshal(bytes, &imageDetails)
 
-	if err != nil {
-		return Document{}, err
-	}
+	reader.Must(err, "Unmarshalled JSON")
 
-	return imageDetails, nil
+	return imageDetails
 }
 
 //NewConfigReader  Function for creating a new reader for the config file
-func NewConfigReader(filepath string) *configReader {
+func NewConfigReader(filepath string, l *logger.Logger) *ConfigReader {
 
-	reader := configReader{
-		filename: filepath,
+	reader := ConfigReader{
+		l, filepath,
 	}
 
 	return &reader
