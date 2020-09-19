@@ -49,8 +49,8 @@ func GeneratePoster(posterDetails readers.Document) {
 
 	//Draw the title
 	surface.MoveTo(150, 150)
-	surface.SelectFontFace("opensans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-	drawString(posterDetails.Title, surface, 47.0)
+	surface.SelectFontFace(posterDetails.Title.Font, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+	drawString(posterDetails.Title.Content, surface, 47.0)
 
 	//Draw a line
 	_, y := surface.GetCurrentPoint()
@@ -65,8 +65,8 @@ func GeneratePoster(posterDetails readers.Document) {
 	//Draw the Venue Address
 	y += 30
 	surface.MoveTo(x, y)
-	surface.SelectFontFace("ubuntu", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-	drawString(posterDetails.Venue, surface, 20)
+	surface.SelectFontFace(posterDetails.Venue.Font, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+	drawString(posterDetails.Venue.Content, surface, 20)
 
 	//Draw Another Line
 	_, y = surface.GetCurrentPoint()
@@ -118,10 +118,10 @@ func GeneratePoster(posterDetails readers.Document) {
 	//Finally Drawing the Links
 	y += 40
 	surface.MoveTo(x, y)
-	surface.SelectFontFace("roboto", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+	surface.SelectFontFace(posterDetails.Font, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 	drawLinks(posterDetails.GroupWebsites, surface, 17.0)
 	//Saving the Poster
-	surface.WriteToPNG(posterDetails.Title + ".png")
+	surface.WriteToPNG(posterDetails.Title.Content + ".png")
 }
 
 //drawLinks  Function for drawing the hyperlinks

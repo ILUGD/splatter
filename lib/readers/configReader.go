@@ -41,15 +41,21 @@ type Time struct {
 	End   string `json:"end"`
 }
 
+type Text struct {
+	Content string `json:"content"`
+	Font    string `json:"font"`
+}
+
 //Document  Parent Data Structure for the Poster Details
 type Document struct {
-	Title         string   `json:"title"`
+	Title         Text     `json:"title"`
 	EventDate     Date     `json:"date"`
-	Venue         string   `json:"venue"`
+	Venue         Text     `json:"venue"`
 	Timings       Time     `json:"time"`
 	Background    string   `json:"background"`
 	SponsorLogos  []string `json:"logos"`
 	GroupWebsites []string `json:"websites"`
+	Font          string   `json:"font"`
 }
 
 type ConfigReader struct {
